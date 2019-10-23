@@ -8,7 +8,7 @@ def pytest_addoption(parser):
                      help="Choose Language, using --language [var]")
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def driver(request):
     options = Options()
 
