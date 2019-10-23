@@ -10,8 +10,7 @@ class LoginPage(BasePage):
 
     def should_be_login_url(self):
         current_link = self.driver.current_url()
-        assert current_link == "http://selenium1py.pythonanywhere.com/ru/accounts/login/",\
-            "Current page is not Login page"
+        assert "login" in current_link, "Current page is not Login page"
 
     def should_be_login_form(self):
         assert self.is_element_present(self, *LoginPageLocators.LOGIN_FORM), "Login form is not present"
