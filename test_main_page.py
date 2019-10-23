@@ -29,6 +29,7 @@ def test_guest_cant_see_product_in_basket_opened_from_main_page(driver):
     new_page.is_items_not_present()
     new_page.is_message_present()
 
+
 def test_guest_cant_see_product_in_basket_opened_from_product_page(driver):
     link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0"
     page = ProductPage(driver, link)
