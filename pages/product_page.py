@@ -22,6 +22,13 @@ class ProductPage(BasePage):
         name_actual = self.driver.find_element(*ProductPageLocators.ITEM_NAME_GOT).text
         assert name_actual == name_to_be, "Names does not match"
 
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
+            "Success message is presented, but should not be"
+
+    def should_disappear(self):
+        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), "Should disappear but did not"
+
     def solve_quiz_and_get_code(self):
         alert = self.driver.switch_to.alert
         x = alert.text.split(" ")[2]
