@@ -6,13 +6,20 @@ from .locators import BasePageLocators
 
 
 class BasePage():
-    def __init__(self, driver, url, timeout = 10):
+    def __init__(self, driver, url, timeout = 2):
         self.driver = driver
         self.url = url
         self.driver.implicitly_wait(timeout)
 
     def open(self):
         self.driver.get(self.url)
+
+    def wait_for(self, how, what):
+        try:
+            WebDriverWait(self.driver, 1).until(EC.presence_of_element_located((how, what)))
+        except TimeoutException:
+            return print(f"No such {what}, located {how}")
+        return True
 
     def go_to_login_page(self):
         link = self.driver.find_element(*BasePageLocators.LOGIN_LINK)
@@ -46,3 +53,7 @@ class BasePage():
         except TimeoutException:
             return False
         return True
+
+    def should_be_authorized_user(self):
+        assert self.is_element_present(*BasePageLocators.USER_ICON), "User icon is not presented," \
+                                                                     " probably unauthorised user"
