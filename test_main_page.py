@@ -5,7 +5,6 @@ from .pages.product_page import ProductPage
 import pytest
 
 
-@pytest.mark.login_guest
 class TestLoginFromMainPage():
     def test_guest_should_see_login_link(self, driver):
         link = "http://selenium1py.pythonanywhere.com/"
@@ -31,12 +30,3 @@ def test_guest_cant_see_product_in_basket_opened_from_main_page(driver):
     new_page.is_items_not_present()
     new_page.is_message_present()
 
-
-def test_guest_cant_see_product_in_basket_opened_from_product_page(driver):
-    link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0"
-    page = ProductPage(driver, link)
-    page.open()
-    page.go_to_basket_from_button()
-    new_page = BasketPage(driver, driver.current_url)
-    new_page.is_items_not_present()
-    new_page.is_message_present()

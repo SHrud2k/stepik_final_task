@@ -16,7 +16,7 @@ class BasePage():
 
     def wait_for(self, how, what):
         try:
-            WebDriverWait(self.driver, 1).until(EC.presence_of_element_located((how, what)))
+            WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((how, what)))
         except TimeoutException:
             return print(f"No such {what}, located {how}")
         return True
