@@ -2,22 +2,43 @@ from .pages.product_page import ProductPage
 from .pages.login_page import LoginPage
 from .pages.basket_page import BasketPage
 import pytest
+import allure
 
 
+@allure.feature("Корзина")
+@allure.title("Работа авторизованного юзера с корзиной")
+@allure.severity(allure.severity_level.CRITICAL)
 class TestUserAddToBasketFromProductPage():
     @pytest.mark.need_review
     def test_user_can_add_product_to_basket(self, driver):
+        '''JTREWRTYUILIUIYTRYUIIYKJTHRTG'''
         link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0"
-        page = ProductPage(driver, link)
-        page.open()
-        page.go_to_login_page()
-        register_page = LoginPage(driver, driver.current_url)
-        register_page.setup_user()
-        page.open()
-        page.click_on_basket()
-        page.solve_quiz_and_get_code()
-        page.prices_do_match()
-        page.names_do_match()
+
+        with allure.step("Переход по ссылке " + link):
+            page = ProductPage(driver, link)
+            page.open()
+
+        with allure.step("Переход на страницу авторизации"):
+            page.go_to_login_page()
+
+        with allure.step("Регистрация пользователя"):
+            register_page = LoginPage(driver, driver.current_url)
+            register_page.setup_user()
+
+        with allure.step("Возврат на главную страницу"):
+            page.open()
+
+        with allure.step("Добавление товара в корзину"):
+            page.click_on_basket()
+
+        with allure.step("Решение секретного кода"):
+            page.solve_quiz_and_get_code()
+
+        with allure.step("Проверка совпадения имен"):
+            page.prices_do_match()
+
+        with allure.step("Проверка совпаления цен"):
+            page.names_do_match()
 
     @pytest.mark.xfail
     def test_user_cant_see_success_message_after_adding_product_to_basket(self, driver):

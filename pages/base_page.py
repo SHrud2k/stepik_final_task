@@ -16,9 +16,9 @@ class BasePage():
 
     def wait_for(self, how, what):
         try:
-            WebDriverWait(self.driver, 2).until(EC.presence_of_element_located((how, what)))
+            WebDriverWait(self.driver, 2).until(EC.element_to_be_clickable((how, what)))
         except TimeoutException:
-            return print(f"No such {what}, located {how}")
+            return print(f"No such {what}, located by {how}")
         return True
 
     def go_to_login_page(self):

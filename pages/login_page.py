@@ -25,10 +25,10 @@ class LoginPage(BasePage):
         assert self.is_element_present(*LoginPageLocators.REGISTER_FORM), "Register form is not present"
 
     def value_input(self, what, how, where):
-        self.wait_for(how, what)
         self.driver.find_element(how, where).send_keys(what)
 
     def register_new_user(self, email, password):
+        time.sleep(0.5)
         self.value_input(email, *LoginPageLocators.REGISTER_EMAIL)
         self.value_input(password, *LoginPageLocators.REGISTER_PASSWORD)
         self.value_input(password, *LoginPageLocators.REGISTER_PASSWORD_CONFIRM)
